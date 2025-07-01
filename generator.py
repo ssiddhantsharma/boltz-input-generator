@@ -419,11 +419,21 @@ def process_files(input_dir, output_dir, msa_dir=None, force_type=None, output_f
                 ])
                 
                 processed_files += 1
+                print(f"  {file_id}: {total_chains} chains ({len(protein_chains)} protein, {len(nucleic_chains)} nucleic, {len(ligand_chains)} ligand)")
                 
             except Exception as e:
-                pass
+                print(f"  Error processing {file_path.name}: {e}")
         
-        print(f"Processed {processed_files} files")
+        if processed_files > 0:
+            print(f"\nSuccessfully processed {processed_files} files")
+            print(f"Output directory: {output_dir}")
+            print(f"Control file: {csv_path}")
+            if use_msa_server:
+                print("Ready for Boltz with --use_msa_server flag")
+            else:
+                print("Ready for Boltz prediction")
+        else:
+            print("No files were processed")
 
 def main():
     parser = argparse.ArgumentParser(description='Generate Boltz input files from PDB and FASTA files')
