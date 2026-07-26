@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "boltz-input-generator"
+version = "2.1.0"
+description = "Generate Boltz input files (YAML/FASTA) from PDB structures and FASTA sequences, with ligand detection and SMILES fetching."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { file = "LICENSE" }
+dependencies = [
+    "pyyaml",
+    "requests",
+]
+
+[project.optional-dependencies]
+# ProDy gives more robust PDB parsing than the built-in fallback parser.
+prody = ["prody"]
+test = ["pytest"]
+
+[project.scripts]
+boltz-input-generator = "boltz_generator:main"
+
+[tool.setuptools]
+py-modules = ["boltz_generator"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
